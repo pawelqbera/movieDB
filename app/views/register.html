@@ -1,0 +1,56 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Register - movieDB</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        </ul>
+        <h3 class="text-muted">movieDB</h3>
+      </div>        
+      <form class="form-signin" action="/register" method="post">
+        <h2 class="form-signin-heading">Sign Up for MovieDB</h2>
+        <div class="form-group">
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus>        
+        </div>
+        <div class="form-group">
+            <label for="inputUsername" class="sr-only">Email</label>
+            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email Adress" required autofocus>      
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        </div>
+        <p>Already have an account? <a href="/login">Login</a><span> | </span><a href="/">Home</a></p>
+      </form>
+    </div> <!-- /container -->    
+  </body>
+</html>

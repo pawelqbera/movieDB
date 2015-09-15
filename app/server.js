@@ -17,7 +17,7 @@
 	var passport = require('passport');
 	var LocalStrategy = require('passport-local').Strategy;
 	var flash = require('connect-flash');
-	
+	var config = require('./config/environment');
 
 	// Setup server
 	var app = express();
@@ -62,8 +62,9 @@
 	// MONGODB CONNECTION
 	// ==============================================	
 
-	// Connect to MongoDB database
-	mongoose.connect('mongodb://pawelq:Cjt3kUGXgPRczbQo@ds041623.mongolab.com:41623/movies');
+	// Connect to database
+	mongoose.connect(config.mongo.uri, config.mongo.options);
+	
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error:'));
 	db.once('open', function (callback) {

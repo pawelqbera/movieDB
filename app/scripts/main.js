@@ -80,7 +80,7 @@
 	  	html += 	'<li><span><b>Genre: </b></span>' + this.text.genre + '</li>';
 	  	html += 	'<li><span><b>Country: </b></span>' + this.text.country + '</li>';
 	  	html += 	'<li><a id="removeMovieBtn' + this._id + '">Remove</span></a></li>';
-	  	html += 	'<li><a id="removeMovieFromDbBtn' + this._id + '">Remove from Database</span></a></li>';
+	  	html += 	'<li><a class="removeMovieFromDbBtn" id="removeMovieFromDbBtn' + this._id + '">Remove from Database</span></a></li>';
 	  	html += 	'<li><a id="editMovieBtn' + this._id + '">Edit</span></a></li>';
 	  	html += 	'<li><a id="cancelEditMovieBtn' + this._id + '" class="hidden">Cancel</span></a></li>';	  	
 	  	html += '</ul>';
@@ -163,40 +163,40 @@
 
 	// Build movie class 
 	var Movie = function() {
-		this.title = document.getElementById("formTitle").value;
-		this.year = document.getElementById("formYear").value;
-		this.plot = document.getElementById("formPlot").value;
-		this.director = document.getElementById("formDirector").value;
-		this.genre = document.getElementById("formGenre").value;
-		this.country = document.getElementById("formCountry").value;
-		this.id = document.getElementById("movieId").value;
-	};
+	 	this.title = document.getElementById("formTitle").value;
+	 	this.year = document.getElementById("formYear").value;
+	 	this.plot = document.getElementById("formPlot").value;
+	 	this.director = document.getElementById("formDirector").value;
+	 	this.genre = document.getElementById("formGenre").value;
+	 	this.country = document.getElementById("formCountry").value;
+	 	this.id = document.getElementById("movieId").value;
+	 };
 
 	MovieDB.prototype.addMovie = function(e) {
-		  	e.preventDefault();
-			//validation
-			if(this.validateMovieForm() === false) {
-				return false;
-			}		
-			// instantiate new movie object
-			var movie = new Movie();	
-			var http = new XMLHttpRequest();
-			var url = "/add";
-			var params = "title=" + movie.title + "&year=" + movie.year + "&plot=" + movie.plot + "&director=" + movie.director + "&genre=" + movie.genre + "&country=" + movie.country;
-			http.open("POST", url, true);
+ 	  	e.preventDefault();
+ 		//validation
+ 		if(this.validateMovieForm() === false) {
+			return false;
+ 		}		
+ 		// instantiate new movie object
+ 		var movie = new Movie();	
+ 		var http = new XMLHttpRequest();
+ 		var url = "/add";
+ 		var params = "title=" + movie.title + "&year=" + movie.year + "&plot=" + movie.plot + "&director=" + movie.director + "&genre=" + movie.genre + "&country=" + movie.country;
+ 		http.open("POST", url, true);
 
-			//Send the proper header information along with the request
-			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			http.setRequestHeader("Content-length", params.length);
-			http.setRequestHeader("Connection", "close");
+ 		//Send the proper header information along with the request
+ 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+ 		http.setRequestHeader("Content-length", params.length);
+ 		http.setRequestHeader("Connection", "close");
 
-			http.onreadystatechange = function() {//Call a function when the state changes.
-			    if(http.readyState == 4 && http.status == 200) {
-			        console.log(http.responseText);
-			        addMovieForm.reset();
-			    }
-			};
-			http.send(params);
+ 		http.onreadystatechange = function() {//Call a function when the state changes.
+ 		    if(http.readyState == 4 && http.status == 200) {
+ 		        console.log(http.responseText);
+ 		        addMovieForm.reset();
+ 		    }
+ 		};
+ 		http.send(params);
 	};
 
 	MovieDB.prototype.updateMovie = function(e) {

@@ -70,14 +70,16 @@ module.exports = function (grunt) {
             '<%= config.app %>/images/{,*/}*',
             '.tmp/scripts/{,*/}*.js'
           ],
-          port: 9000,
-          server: {
-            baseDir: ['.tmp', config.app],
-            routes: {
-              '/bower_components': './bower_components'
-            }
-          }
-        }
+          ui: false,
+        //  port: 7000,
+        //  server: {
+        //   baseDir: ['./'],
+        //   routes: {
+         //    '/bower_components': './bower_components'
+         //  }
+        // }
+         proxy: "localhost:7000"
+       }
       },
       test: {
         options: {
@@ -96,7 +98,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
           background: false,
-          server: '<%= config.dist %>'
+          proxy: "localhost:7000"
         }
       }
     },
@@ -339,10 +341,11 @@ module.exports = function (grunt) {
           cwd: '<%= config.app %>',
           dest: '<%= config.dist %>',
           src: [
-            '*.{ico,png,txt}',
+            '*.{ico,png,txt,js,json}',
             'images/{,*/}*.webp',
             '{,*/}*.html',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'Procfile'
           ]
         }, {
           expand: true,
@@ -401,14 +404,20 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss',
+      'server',
       'browserSync:livereload',
       'watch'
     ]);
   });
 
-  grunt.registerTask('server', function (target) {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run([target ? ('serve:' + target) : 'serve']);
+//  grunt.registerTask('server', function (target) {
+ //   grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+ //   grunt.task.run([target ? ('serve:' + target) : 'serve']);
+//  });
+
+  grunt.registerTask('server', 'Start a custom web server.', function() {
+    grunt.log.writeln('Starting web server.');
+    require('./server.js');
   });
 
   grunt.registerTask('test', function (target) {
