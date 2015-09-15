@@ -1,0 +1,114 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>movieDB Dashboard</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+    
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+        <h3 class="text-muted">movieDB dashboard</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>MoviesDB</h1>
+        <p class="lead">Welcome to Movies Database Dashboard</p>
+        <form id="addMovieForm">
+          <h2>Add movie to database!</h2>
+          <ul>
+            <li>
+             <label>Title</label>
+             <input type="text" id="formTitle" name="title">
+            </li>
+            <li>
+             <label>Year</label>
+             <input type="text" id="formYear" name="year">
+            </li>
+            <li>            
+              <label>Plot</label>
+              <input type="text" id="formPlot" name="plot">
+            </li>
+            <li>            
+             <label>Director</label>
+             <input type="text" id="formDirector" name="director">
+            </li>
+            <li>            
+             <label>Genre</label>
+             <input type="text" id="formGenre" name="genre">
+            </li>
+            <li>            
+             <label>Country</label>
+             <input type="text" id="formCountry" name="country">
+            </li>
+            <li>
+              <input type="hidden" id="movieId" name="id"> 
+              <input type="submit" value="Add movie" id="addMovieBtn">
+              <input type="submit" value="update movie" id="updateMovieBtn" class="hidden">              
+            </li>
+          </ul>
+        </form>
+        <h2>Display movies</h2>
+        <button id="moviesBtn">Show My All Movies</button>
+        <h2>Search for movies</h2>
+        <input type="text" id="searchMovieInput" placeholder="Enter movie title...">
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <div id="moviesList"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p><span class="glyphicon glyphicon-heart"></span> Pawel Kubera</p>
+      </div>
+    </div>
+    
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    
+    <!-- build:js(.) scripts/plugins.js -->
+
+    <!-- endbuild -->
+    
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script> 
+    <!-- endbuild -->
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  </body>
+</html>
