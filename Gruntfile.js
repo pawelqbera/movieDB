@@ -191,6 +191,19 @@ module.exports = function (grunt) {
       }
     },
 
+    env: {
+      test: {
+        NODE_ENV: 'test'
+      },
+      dev: {
+        NODE_ENV: 'development',
+      },
+      prod: {
+        NODE_ENV: 'production'
+      },
+    //  all: localConfig
+    },
+
     postcss: {
       options: {
         map: true,
@@ -345,6 +358,7 @@ module.exports = function (grunt) {
             'images/{,*/}*.webp',
             '{,*/}*.html',
             'styles/fonts/{,*/}*.*',
+            'config/*/*.js',
             'Procfile'
           ]
         }, {
@@ -396,11 +410,12 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', 'start the server and preview your app', function (target) {
 
     if (target === 'dist') {
-      return grunt.task.run(['build', 'browserSync:dist']);
+      return grunt.task.run(['build', 'env:prod', 'browserSync:dist']);
     }
 
     grunt.task.run([
       'clean:server',
+      'env:dev',
       'wiredep',
       'concurrent:server',
       'postcss',
@@ -417,7 +432,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', 'Start a custom web server.', function() {
     grunt.log.writeln('Starting web server.');
-    require('./server.js');
+    require('./app/server.js');
   });
 
   grunt.registerTask('test', function (target) {

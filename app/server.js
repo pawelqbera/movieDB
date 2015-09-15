@@ -8,6 +8,9 @@
 	// BASE SETUP
 	// ==============================================
 
+	// Set default node environment to development
+	process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 	// Require statements
 	var express = require('express');
 	var mongoose = require('mongoose');
@@ -17,7 +20,10 @@
 	var passport = require('passport');
 	var LocalStrategy = require('passport-local').Strategy;
 	var flash = require('connect-flash');
-	var config = require('./config/environment');
+	var config = require('./config/environment/development');
+
+
+	console.log('connected or not to config: ' + 	config);
 
 	// Setup server
 	var app = express();
