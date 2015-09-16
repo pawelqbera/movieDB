@@ -22,8 +22,10 @@
 	var flash = require('connect-flash');
 	var config = require('./config/environment/development');
 
+	console.log("Config.env: " + process.env.NODE_ENV);
 
-	console.log('connected or not to config: ' + 	config);
+	var isDevelepment = (process.env.NODE_ENV === 'development') ? true : false;
+	console.log('Is developemnt env?: ' + isDevelepment);
 
 	// Setup server
 	var app = express();
@@ -35,22 +37,30 @@
 	// ROUTES
 	// ==============================================	
 
-	app.use(express.static(__dirname + '/'));
-	app.use(express.static(__dirname + '/app'));
-	app.use(express.static(__dirname + '/.tmp'));
+	if(isDevelepment) {
+		app.use(express.static(__dirname + '/../'));
+		app.use(express.static(__dirname + '/../.tmp'));
+	} else {	
+		app.use(express.static(__dirname + '/'));
+	}
+	
+	console.log('Dirname is ' + __dirname);
 
 	app.get('/', function(req,res){
 	  res.sendFile(path.join(__dirname + '/index.html'));
 	});	
 
 	app.get('/login',function(req,res){
-	  res.sendFile(path.join(__dirname + '/app/views/login.html'));
+	  res.sendFile(path.join(__dirname + '/views/login.html'));
+	});
+
+	app.get('/contact',function(req,res){
+	  res.sendFile(path.join(__dirname + '/views/contact.html'));
 	});	
 
 	app.get('/register',function(req,res){
-	  res.sendFile(path.join(__dirname + '/app/views/register.html'));
+	  res.sendFile(path.join(__dirname + '/views/register.html'));
 	});
-
 
 	// START THE SERVER
 	// ==============================================
@@ -237,14 +247,12 @@
 	  	}
 	};
 
-	app.get('/dashboard', isAuthenticated, function(req, res) {
-	  res.sendFile(path.join(__dirname + '/app/views/dashboard.html'));
-	});
-
-
 	// As with any middleware it is quintessential to call next()
 	// if the user is authenticated
-	
+
+	app.get('/dashboard', isAuthenticated, function(req, res) {
+	  res.sendFile(path.join(__dirname + '/views/dashboard.html'));
+	});	
 
 	// Serialize and deserialize the user instance	
 	 passport.serializeUser(function(user, done) {

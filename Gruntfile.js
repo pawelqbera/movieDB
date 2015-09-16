@@ -15,7 +15,8 @@ module.exports = function (grunt) {
 
   // Automatically load required grunt tasks
   require('jit-grunt')(grunt, {
-      useminPrepare: 'grunt-usemin'
+    express: 'grunt-express-server',    
+    useminPrepare: 'grunt-usemin'
   });
 
   // Configurable paths
@@ -29,7 +30,26 @@ module.exports = function (grunt) {
 
     // Project settings
     config: config,
-
+    express: {
+          options: {
+            port: process.env.PORT || 7000
+          },
+          dev: {
+            options: {
+              script: 'app/server.js'
+            }
+          },
+          dist: {
+            options: {
+              script: 'dist/server.js'
+            }
+          }
+        },
+        open: {
+          server: {
+            url: 'http://localhost:<%= express.options.port %>'
+          }
+        },
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -198,7 +218,7 @@ module.exports = function (grunt) {
       dev: {
         NODE_ENV: 'development',
       },
-      prod: {
+      dist: {
         NODE_ENV: 'production'
       },
     //  all: localConfig
@@ -371,22 +391,22 @@ module.exports = function (grunt) {
       }
     },
 
-    // Generates a custom Modernizr build that includes only the tests you
-    // reference in your app
-    modernizr: {
-      dist: {
-        devFile: 'bower_components/modernizr/modernizr.js',
-        outputFile: '<%= config.dist %>/scripts/vendor/modernizr.js',
-        files: {
-          src: [
-            '<%= config.dist %>/scripts/{,*/}*.js',
-            '<%= config.dist %>/styles/{,*/}*.css',
-            '!<%= config.dist %>/scripts/vendor/*'
-          ]
-        },
-        uglify: true
-      }
-    },
+    // // Generates a custom Modernizr build that includes only the tests you
+    // // reference in your app
+    // modernizr: {
+    //   dist: {
+    //     devFile: 'bower_components/modernizr/modernizr.js',
+    //     outputFile: '<%= config.dist %>/scripts/vendor/modernizr.js',
+    //     files: {
+    //       src: [
+    //         '<%= config.dist %>/scripts/{,*/}*.js',
+    //         '<%= config.dist %>/styles/{,*/}*.css',
+    //         '!<%= config.dist %>/scripts/vendor/*'
+    //       ]
+    //     },
+    //     uglify: true
+    //   }
+    // },
 
     // Run some tasks in parallel to speed up build process
     concurrent: {
@@ -410,7 +430,7 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', 'start the server and preview your app', function (target) {
 
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:prod', 'browserSync:dist']);
+      return grunt.task.run(['build', 'env:dist', 'express:dist', 'browserSync:dist']);
     }
 
     grunt.task.run([
@@ -419,21 +439,21 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss',
-      'server',
+      'express:dev',
       'browserSync:livereload',
       'watch'
     ]);
   });
 
-//  grunt.registerTask('server', function (target) {
- //   grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
- //   grunt.task.run([target ? ('serve:' + target) : 'serve']);
-//  });
+  // grunt.registerTask('server', function (target) {
+  //   grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+  //   grunt.task.run([target ? ('serve:' + target) : 'serve']);
+  // });
 
-  grunt.registerTask('server', 'Start a custom web server.', function() {
-    grunt.log.writeln('Starting web server.');
-    require('./app/server.js');
-  });
+  // grunt.registerTask('server', 'Start a custom web server.', function() {
+  //   grunt.log.writeln('Starting web server.');
+  //   require('./app/server.js');
+  // });
 
   grunt.registerTask('test', function (target) {
     if (target !== 'watch') {
@@ -460,7 +480,7 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'copy:dist',
-    'modernizr',
+  //  'modernizr',
     'filerev',
     'usemin',
     'htmlmin'
