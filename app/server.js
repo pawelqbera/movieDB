@@ -24,8 +24,8 @@
 
 	console.log("Config.env: " + process.env.NODE_ENV);
 
-	var isDevelepment = (process.env.NODE_ENV === 'development') ? true : false;
-	console.log('Is developemnt env?: ' + isDevelepment);
+	var isDevelopment = (process.env.NODE_ENV === 'development') ? true : false;
+	console.log('Is developemnt env?: ' + isDevelopment);
 
 	// Setup server
 	var app = express();
@@ -37,7 +37,7 @@
 	// ROUTES
 	// ==============================================	
 
-	if(isDevelepment) {
+	if(isDevelopment) {
 		app.use(express.static(__dirname + '/../'));
 		app.use(express.static(__dirname + '/../.tmp'));
 	} else {	
